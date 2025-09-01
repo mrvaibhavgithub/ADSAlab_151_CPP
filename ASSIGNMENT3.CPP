@@ -1,6 +1,9 @@
 /*
 Problem Statement:
-Given a number n, find the smallest number whose factorial contains at least n trailing zeroes.
+Implement a problem of smallest number with at least no trailing 
+zeroes in factorial.   
+Statement: Given a number n. The task is to find the smallest number 
+whose factorial contains at least n trailing zeroes. 
 */
 
 #include <bits/stdc++.h>
