@@ -1,12 +1,10 @@
 /*
 Problem Statement:
-Implement a problem of smallest number with at least no trailing 
-zeroes in factorial.   
-Statement: Given a number n. The task is to find the smallest number 
-whose factorial contains at least n trailing zeroes. 
+Given a number n, find the smallest number whose factorial contains at least n trailing zeroes.
+Approach: Divide and Conquer (Recursive Binary Search)
 */
 
-#include <bits/stdc++.h>
+#include <iostream>
 using namespace std;
 
 long long countZeroes(long long x) {
@@ -18,19 +16,21 @@ long long countZeroes(long long x) {
     return count;
 }
 
-long long findSmallestNumber(long long n) {
-    long long low = 0, high = 5 * n;
-    long long ans = -1;
-    while (low <= high) {
-        long long mid = (low + high) / 2;
-        if (countZeroes(mid) >= n) {
-            ans = mid;
-            high = mid - 1;
-        } else {
-            low = mid + 1;
-        }
+long long solve(long long low, long long high, long long n) {
+    if (low > high) return -1;
+    long long mid = (low + high) / 2;
+    long long zeros = countZeroes(mid);
+
+    if (zeros >= n) {
+        long long leftAns = solve(low, mid - 1, n); 
+        return (leftAns == -1) ? mid : leftAns;
+    } else {
+        return solve(mid + 1, high, n);
     }
-    return ans;
+}
+
+long long findSmallestNumber(long long n) {
+    return solve(0, 5 * n, n);
 }
 
 int main() {
@@ -49,4 +49,3 @@ Input:
 Output:
 25
 */
-
