@@ -18,9 +18,17 @@ public:
     int start, end;
 };
 
-bool compare(Shop a, Shop b) {
-    if (a.end == b.end) return a.start < b.start;
-    return a.end < b.end;
+void sortShops(Shop shops[], int N) {
+    for (int i = 0; i < N - 1; i++) {
+        for (int j = 0; j < N - i - 1; j++) {
+            if (shops[j].end > shops[j + 1].end ||
+               (shops[j].end == shops[j + 1].end && shops[j].start > shops[j + 1].start)) {
+                Shop temp = shops[j];
+                shops[j] = shops[j + 1];
+                shops[j + 1] = temp;
+            }
+        }
+    }
 }
 
 int maxShopsVisited(int S[], int E[], int N, int K) {
@@ -30,7 +38,7 @@ int maxShopsVisited(int S[], int E[], int N, int K) {
         shops[i].end = E[i];
     }
 
-    sort(shops, shops + N, compare);
+    sortShops(shops, N);
 
     int personEnd[1000];
     int usedPersons = 0;
